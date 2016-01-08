@@ -1,3 +1,5 @@
+<%@page import="tel.data.model.DataConstant"%>
+<%@page import="tel.data.model.User"%>
 <%@page import="tel.data.model.tree.MyNode"%>
 <%@page import="java.util.Vector"%>
 <%@page import="tel.data.model.tree.Disease"%>
@@ -12,6 +14,14 @@
 	TreatmentDecisionTree treatmentDecision=TreatmentDecisionTree.getTreatmentDecisionTree();
 	MyNode root=treatmentDecision.root;
 	
+	User user=(User)request.getSession().getAttribute(DataConstant.SESSION_ID_PATIENT_STRING);
+	if(user==null)
+	{
+		user=(User)request.getSession().getAttribute(DataConstant.SESSION_ID_DOCTOR_STRING);
+	}
+	
+	if(user==null)
+		response.sendRedirect("index.jsp");
 //	Vector <Disease> diseasesList=(Vector<Disease>)treatmentDecision.root.childs;
 	
 %>
@@ -21,15 +31,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/main_layout.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
+<link rel="stylesheet" type="text/css" href="css/healthDes.css" />
 <title>Health Problem Description </title>
 </head>
-<body>
+<body style="background: url('resource/wallpaer_back.jpg');">
 
 <div id="pTitle" >
-<p class="text-center text-success">Dear Patient(name) , Please describe your health problem below</p>
+<h3 class="text-center text-info"> Dear <%= user.getFirstName()+"  "+user.getLastName() %>  , Please describe your health problem below</h3> 
 </div>
-<div id="">
+<div id="mainContainerDiv">
 <p class="span4">Define Your Health Problem </p>
 <select  id="diseasesDropDwon" onchange="diseaseSelection()" >
   <option value="0">--------</option>
@@ -49,8 +59,11 @@
 	<div id="additionInfoForm">
 	
 	</div>
-	<p class="span4"> </p>
-<input   type="submit" title="Submit Your Health Condition" />
+	
+	<div id="btnDiv">
+		
+		<input  id="submitBtn" type="submit" value="Submit Your Health Condition"  class="btn btn-primary btn-large" />
+	</div>
 </form>
 
 </div>
@@ -66,11 +79,13 @@ function diseaseSelection()
 	var dropDwon=document.getElementById("diseasesDropDwon");
 	var selected =dropDwon.options[dropDwon.selectedIndex].value;
 	var infoDiv=document.getElementById("additionInfoForm");
+	var btn=document.getElementById("submitBtn");
 	var httpRes;
 	
 	if(selected==0)
 	{
 		infoDiv.innerHTML="";
+		btn.style.display = 'none';
 		return;
 	}
 	httpRes=new XMLHttpRequest("additionalInfo");
@@ -80,6 +95,8 @@ function diseaseSelection()
 		{
 			infoDiv.innerHTML=httpRes.responseText;	
 		}
+		btn.style.display = 'block';
+		
 	}
 	httpRes.open("GET","./DiseasesQuery?diseaseId="+selected,true);
 	httpRes.send();

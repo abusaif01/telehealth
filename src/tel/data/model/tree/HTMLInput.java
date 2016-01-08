@@ -38,16 +38,17 @@ public  class HTMLInput extends MyNode{
 	public Medicine getMedicine(int inputValue)
 	{
 		Integer[] values=(Integer[]) valueMedMap.keySet().toArray(new Integer[0]);
-		if(inputValue>values[values.length-1])
+		if(inputValue>=values[values.length-1])
 		{
-			return null;
+			return valueMedMap.get(new Integer(values[values.length-1]));
 		}
+		
 		System.out.println("len"+values.length);
 		for(int i=0;i<values.length;i++)
 		{
 			
 			System.out.println(values[i].intValue());
-			if(inputValue<=values[i].intValue())
+			if( inputValue<=values[i].intValue())
 			{
 				return valueMedMap.get(new Integer(values[i]));
 			}

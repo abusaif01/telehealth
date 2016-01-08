@@ -38,7 +38,9 @@ public class Registration extends HttpServlet {
 		if(request.getParameter("optionsRadios").equals(DataConstant.RADIO_VALUE_PATIENT_STRING))
 		{
 			Patient patient=new Patient(request.getParameter("firstName"), request.getParameter("lastName"), request.getParameter("userName"),
-					request.getParameter("userPassword"),DataConstant.USER_TYPE_PATIENT_INT, "Dhaka", 123);
+					request.getParameter("userPassword"),DataConstant.USER_TYPE_PATIENT_INT,
+					Integer.parseInt(request.getParameter("userAge")),Integer.parseInt( request.getParameter("userWeight")));
+			
 			new PatientManager().addPatient(patient);
 			
 		}	
@@ -50,6 +52,7 @@ public class Registration extends HttpServlet {
 		}
 		
 		response.getWriter().write("Inserted Sucessfully");
+		
 
 	}
 

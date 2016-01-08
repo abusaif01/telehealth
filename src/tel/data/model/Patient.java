@@ -7,12 +7,11 @@ import javax.persistence.*;
 
 public class Patient extends User{
 	
-	@Column(name="location")
-	private String location;
 	@Column(name="age")
 	private int age;
 	
-
+	@Column(name="weight")
+	private int weight;
 	public Patient() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,10 +27,10 @@ public class Patient extends User{
 	
 	public Patient(String firstName, String lastName,
 			String userName, String userPassword, int userType,
-			String location, int age) {
+			int age,int weight) {
 		super( firstName, lastName, userName, userPassword, userType);
-		this.location = location;
 		this.age = age;
+		this.weight = weight;
 	}
 
 	public Patient( String firstName, String lastName,
@@ -40,18 +39,23 @@ public class Patient extends User{
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
+	
 	public int getAge() {
 		return age;
 	}
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+	
+	
 	
 	
 }

@@ -5,20 +5,22 @@
 <%@page import="tel.data.model.Message"%>
 <%@page import="tel.data.model.DataConstant"%>
 <%@page import="java.util.Enumeration"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-	Doctor doctor=null;
+	Doctor doctor=(Doctor)request.getSession().getAttribute(DataConstant.SESSION_ID_DOCTOR_STRING);
+	Patient patient=(Patient)request.getSession().getAttribute(DataConstant.SESSION_ID_PATIENT_STRING);
 	Doctor tempDoc=null;
-	Patient patient=null;
+
+
+
 	boolean isLoggedIn=false;
 	String firstName=null;
 	String lastName=null;
 	List<Doctor> docotrList=new DoctorManager().getDoctorsList();
 	
-	patient=(Patient)session.getAttribute(DataConstant.SESSION_ID_PATIENT_STRING);
-	doctor=(Doctor)session.getAttribute(DataConstant.SESSION_ID_DOCTOR_STRING);
 	
 	if(patient!=null)
 	{
@@ -32,6 +34,7 @@
 		lastName=doctor.getLastName();
 		isLoggedIn=true;
 	}
+	
 %>
 
 <html>
@@ -39,13 +42,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="css/main_layout.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<title>Wellcome To Tele Health Service</title>
+<title>Welcome To E-Health Service</title>
 
 </head>
 
 <body>
 <div id="head">
-  <h1>This Is Our Tele-Health Service</h1>
+  <h2>WelCome To Our E-Health Service</h2>
+ <!--  <div  id=image1 class="headImages"> <img src="resource/mibile_doctor (2).jpg" />  </div> -->
+  <div id="image2" class="headImages"><img src="resource/mibile_doctor (2).jpg" /></div>
+  <div id="image3" class="headImages"></div>
 	<div id="log_reg" >
 	<%
 		if(isLoggedIn)
@@ -60,18 +66,10 @@
       </a>
       <div class="dropdown-menu">
      	 <li><a href="profile.jsp">Profile</a></li>
- 		 <li><a href="#">History</a></li>
- 		 <li><a href="#">History</a></li>
- 		 <li><a href="#">History</a></li>
+ 		 
  		 <li><a href="#" onClick="userLogout()">Log Out</a></li>
       </div>
-<!--       
-     <ul class="dropdown-menu">
-        <!-- dropdown menu links 
-         <li><a href="#">Profile</a></li>
- 		 <li><a href="#">History</a></li>
-      </ul>
-  -->
+
     </div>
 	
 	<%
@@ -79,7 +77,7 @@
 				else
 				{
 		%>
-		<a href="#loginModal" data-toggle="modal">Login/Register </a>
+		<a href="#loginModal" data-toggle="modal" >Login/Register </a>
 	<%
 		}
 	%>
@@ -87,14 +85,26 @@
 </div>
 <div id="main_body" >
 <div id="main_menu">
-    <table id="menu_table">
-   	  <tr >
-       	  <td>Home </td> 
-       	  <td><a href="healthDes.jsp">Take Consultancy</a></td> 
-        	<td>Record</td> 
-        	<td>About Us</td>
-        </tr>
-    </table>
+
+<div class="navbar ">
+  <div class="navbar-inner">
+  <ul class="nav" id="menuNav">
+  
+  <li class="active"> <a  href="#"> Home</a> </li>
+ <li> <a  href= <%
+				if(isLoggedIn)
+				{
+					out.println("healthDes.jsp");	
+				}
+				else out.println("#loginModal data-toggle=\"modal\"");	
+				%> >Take Consultancy</a></li>
+
+	 <li> <a  href="#"> Record</a> </li>
+	  <li> <a  href="#"> About Us</a> </li>
+  </ul>
+  </div>
+ </div>
+
 </div>
 
 <div class="accordion" id="doctorList">
@@ -122,9 +132,47 @@
     </div>
   </div>
 </div>
- 
-
-
+<div id="carouselDiv" style="position:relative;width: 60%; height:300px; left:20%; top:20px; ">
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"> </li>
+    <li data-target="#myCarousel" data-slide-to="1"> </li>
+    <li data-target="#myCarousel" data-slide-to="2"> </li>
+     <li data-target="#myCarousel" data-slide-to="3"> </li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><img src="resource/slide_image/doctors_team1.jpg"   />
+   		<div class="carousel-caption">
+            <h4>First Image </h4>
+            <p>----------------------</p>
+          </div>
+    </div>
+    <div class="item"> <img src="resource/slide_image/doctors_team2.jpg" /> 
+    	<div class="carousel-caption">
+            <h4>Second Image </h4>
+            <p>----------------------</p>
+          </div>
+    </div>
+    <div class="item"><img src="resource/slide_image/doctor_on_phn.jpg" />
+     	<div class="carousel-caption">
+            <h4>Third Image </h4>
+            <p>----------------------</p>
+          </div>
+     </div>
+     <div class="item"><img src="resource/slide_image/doctor_on_phn_female.jpg" />
+     	<div class="carousel-caption">
+            <h4>Fourth Image </h4>
+            <p>----------------------</p>
+          </div>
+     </div>
+     
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+</div> 
 </div>
 
 
@@ -137,15 +185,19 @@
       <input type="text" class="input-small" id="userName" name="userName" placeholder="user name">
       <input type="password" class="input-small" id="userPassword" name="userPassword" placeholder="Password">
       <label class="checkbox">
-        <input type="checkbox"> Remember me
+       <!-- <input type="checkbox"> Remember me -->
       </label>
-      <button type="button" class="btn" onClick="loginuser()">Log... in</button>
+      <button type="button" class="btn" onClick="loginuser()">Log in</button>
       <div  id="message">
       </div>
     </form>
     </td>
     <td>
-      <a href="registration.jsp" >Not Registered? Register Now.</a>
+	    <div class="alert alert-block">
+		  <a href="registration.jsp" >Not Registered? Register Now.</a>
+		</div>
+      
+      <button type="button" class="btn" onclick="regLink()" >Register</button>
     </td>
     </tr>
   </table>
@@ -171,6 +223,7 @@ function  loginuser()
 				message.className="alert alert-success";
 				message.innerHTML="Successfully Logged In";
 				location.href="index.jsp";
+				return;
 			}
 			else if(httpRes.responseText=="2")
 			{
@@ -187,14 +240,34 @@ function  loginuser()
 
 function userLogout()
 {
-	<%
-	  session.setAttribute(DataConstant.SESSION_ID_PATIENT_STRING, null);
-      session.setAttribute(DataConstant.SESSION_ID_DOCTOR_STRING, null);
-	%>
-	location.href="index.jsp";
+	httpRes=new XMLHttpRequest();
+	httpRes.onreadystatechange=function()
+	{
+		if(httpRes.readyState==4 && httpRes.status==200)
+		{
+			if(httpRes.responseText=="1")
+			{
+
+				location.href="index.jsp";
+				return;
+			}
+			else if(httpRes.responseText=="2")
+			{
+				message.className="alert alert-error";
+				message.innerHTML="Wrong User Name or Password";
+			}
+			
+			
+		}
+	}
+	httpRes.open("GET","./Logout?",true);
+	httpRes.send();
 }
 
-
+function regLink()
+{
+	location.href="registration.jsp";
+}
 </script>
 
 </body>

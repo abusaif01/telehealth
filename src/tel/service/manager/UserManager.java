@@ -26,6 +26,7 @@ public class UserManager {
 		 try{
 			 factory = new AnnotationConfiguration().
 	                   configure().
+	                   
 	                   addPackage("tel.data.model"). //add package if used.
 	                   addAnnotatedClass(User.class).
 	                   addAnnotatedClass(Doctor.class).

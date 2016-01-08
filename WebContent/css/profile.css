@@ -1,0 +1,87 @@
+#profile_container
+{
+	position:absolute;
+	width:80%;
+	height:80%;
+	left:10%;
+	top:15%;
+	
+	border: thin solid #30F;
+	
+}
+#profile_head
+{
+	position:absolute;
+	right:5%;
+	top:5%;
+	border: thin dotted #999;
+	width:50%;
+	height:35%;
+	background:#CCC;
+	z-index:1;
+	
+}
+#profile_head h3
+{
+	position:relative;
+	top:30%;
+}
+#profile_head div
+{
+	position:relative;
+	height:100%;
+}
+#profile_head img
+{
+	height: 100%;
+	border: thin solid #036;
+}
+
+#profile_detail
+{
+	position: absolute;
+	top: 30%;
+	width: 100%;
+	right:0%;
+	height: 69%;
+	border: thin solid #366;
+	
+	
+}
+
+#profile_info
+{
+	position: absolute;
+	background: white;
+	top:15%;
+	right:5%;
+	width: 80%;
+	
+}
+#profile_info table
+{
+	width: 100%;
+	border: thick solid white;
+}
+#clm1
+{
+	width: 15%;
+	font:Castellar;
+
+}
+
+#clm2
+{
+	width: 25%;
+	font:"MS Serif", "New York", serif;
+	font-style:italic;
+	
+}
+
+#clm3
+{
+	width: 25%;
+	font:"MS Serif", "New York", serif;
+	font-style:italic;
+	
+}

@@ -1,0 +1,17 @@
+#additionalInfo
+{
+	position:relative;
+	border: medium dotted #6CF; 
+	
+}
+#submitBtn
+{
+	
+	display: bolck;
+}
+#btnDiv
+{
+	position:fixed;
+	left:43%;
+	top:70%;
+}

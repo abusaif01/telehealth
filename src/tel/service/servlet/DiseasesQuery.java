@@ -2,7 +2,10 @@ package tel.service.servlet;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Vector;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sun.org.apache.xpath.internal.operations.String;
 
 import tel.data.model.tree.TreatmentDecisionTree;
-
+import tel.data.model.tree.Medicine;
 
 /**
  * Servlet implementation class DiseasesQuery
@@ -44,7 +47,7 @@ public class DiseasesQuery extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int count=TreatmentDecisionTree.getTreatmentDecisionTree().childCount;
-		
+		Vector<Medicine> medList;
 		String[] parameterNames=new String[count];
 		int[] values=new int[count];
 		// System.out.println("parameters kk"+request.getParameter("info"+1));
@@ -57,8 +60,10 @@ public class DiseasesQuery extends HttpServlet {
 			System.out.println("parameters "+values[i]);
 		  
 		}
-		
-		response.getWriter().write(TreatmentDecisionTree.getTreatmentDecisionTree().getTreatment( values));
+		medList=TreatmentDecisionTree.getTreatmentDecisionTree().getTreatment( values);
+		request.setAttribute("medicines", medList);
+		RequestDispatcher rdp=request.getRequestDispatcher("prescription.jsp");
+		rdp.forward(request, response);
 		
 	}
 

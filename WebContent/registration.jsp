@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="css/main_menu.css" />
+<link rel="stylesheet" type="text/css" href="css/main_layout.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <title>New User</title>
 </head>
-<body>
-
+<body style="background: url('resource/wallpaer_back.jpg');">
+<p ><h3 class="text-center text-info">User Registration</h3></p>
+<div id="mainContainerDiv">
 <form class="form-horizontal" method="get" action="./newUser">
 
    <div class="control-group">
@@ -54,6 +55,22 @@
       <input type="password" id="inputPassword" name="userPassword" placeholder="Password">
     </div>
   </div>
+  
+   <div class="control-group">
+    <label class="control-label" for="userAge">Age</label>
+    <div class="controls">
+      <input type="text" id="userAge" name="userAge" placeholder="Age">
+    </div>
+  </div>
+  
+   <div class="control-group">
+    <label class="control-label" for="userWeight">Weight</label>
+    <div class="controls">
+      <input type="text" id="userWeight" name="userWeight" placeholder="Weight">
+    </div>
+  </div>
+  
+  
   <div class="control-group">
     <div class="controls">
      
@@ -62,6 +79,6 @@
   </div>
 </form>
 
-
+</div>
 </body>
 </html>
